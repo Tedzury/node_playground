@@ -1,7 +1,21 @@
 import { app } from './app';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
-const port: number = 3000;
+dotenv.config();
 
-app.listen(port, () => {
-	console.log(`Server is running on http://localhost:${port}`);
-});
+const port = process.env.PORT;
+const dbUrl = process.env.DB_URL;
+
+const main = async () => {
+	try {
+		await mongoose.connect(dbUrl);
+		app.listen(port, () => {
+			console.log(`Server is running on http://localhost:${port}.`);
+		});
+	} catch (e) {
+		console.log(e);
+	}
+};
+
+main();

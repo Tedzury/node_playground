@@ -1,9 +1,11 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import { router as PatientsRouter } from './router/router';
 
+const baseUrl = '/api';
 const app = express();
 
-app.get('/', (req: Request, res: Response) => {
-	res.send('Hello, Node playground!');
-});
+app.use(express.json());
+
+app.use(`${baseUrl}/patients`, PatientsRouter);
 
 export { app };
